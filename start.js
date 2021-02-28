@@ -1,7 +1,7 @@
-global.config=require('./config').release
-config.status='release'
+global.__root=__dirname
 
-var log=require('./bin/event-log')
+require('./bin/event-log')
+require('./bin/initialize-app')
 
 require('./connectorServiceApps')((err,app)=>{
 	if(!err){
@@ -10,7 +10,7 @@ require('./connectorServiceApps')((err,app)=>{
 		eventLog(`version:\t\t ${app.get('version').yellow}`)
 		eventLog(`http port:\t ${app.get('port').toString().yellow}`)
 		eventLog(`tcp port:\t\t ${config.tcpserver.port.toString().yellow}`)
-		eventLog(`running mod:\t ${config.status.cyan}`)
+		eventLog(`running mode:\t ${config.status.cyan}`)
 	}else{
 		errorLog(err)
 	}

@@ -1,5 +1,3 @@
-global.fs=require('fs')
-global.path=require('path')
 var createError = require('http-errors')
 var express = require('express')
 var path = require('path')
@@ -8,16 +6,7 @@ var bodyParser = require('body-parser')
 var logger = require('morgan')
 var favicon = require('serve-favicon')
 
-global.__root=__dirname
 
-global.util = require('./bin/util')
-
-global.privateConfig={}
-if(fs.existsSync('./private-config.json')){
-	global.privateConfig=require('./private-config.json')
-}
-
-global.mail=require('./bin/mail')
 
 
 var indexRouter = require('./routes/index')
