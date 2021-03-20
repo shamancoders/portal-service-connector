@@ -35,7 +35,7 @@ module.exports=()=>{
 	httpServer(app,(err,server,port)=>{
 		dbLoader((err)=>{
 			if(!err){
-				refreshRepoDb()
+			
 				global.connector=require('./services/local-connector')
 				connector.start()
 			}else{
