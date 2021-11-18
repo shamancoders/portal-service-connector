@@ -1,47 +1,37 @@
-module.exports = (dbModel, req, res, next, cb)=>{
-	switch(req.method){
+module.exports = (dbModel, req, res, next, cb) => {
+	switch (req.method) {
 		case 'POST':
-		send(dbModel,req,res,next,cb)
-		break
+			send(dbModel, req, res, next, cb)
+			break
 
 		default:
-		error.method(req, next)
-		break
+			error.method(req, next)
+			break
 	}
-
 }
 
-function send(dbModel,req,res,next,cb){
+function send(dbModel, req, res, next, cb) {
 	var data = req.body || {}
-	if(data['connectorId']==undefined || data['connectorPass']==undefined || data['connectionType']==undefined)
-		return next({code:'WRONG_PARAMETER',message:'connectorId, connectorPass, connectionType are required.'})
+	if(data['connectorId'] == undefined || data['connectorPass'] == undefined || data['connectionType'] == undefined)
+		return next({ code: 'WRONG_PARAMETER', message: 'connectorId, connectorPass, connectionType are required.' })
 
-	switch(data.connectionType){
+	switch (data.connectionType) {
 		case 'mssql':
-		data.command='MSSQL_QUERY'
-		break
+			data.command = 'MSSQL_QUERY'
+			break
 		case 'mysql':
-		data.command='MYSQL_QUERY'
-		break
+			data.command = 'MYSQL_QUERY'
+			break
 		default:
-		data.command=data.command || data.connectionType || ''
-		break
+			data.command = data.command || data.connectionType || ''
+			break
 	}
 
-	connector.sendCommand({
-		connectorId:data.connectorId,
-		connectorPass:data.connectorPass
-	},
-	(data.command || ''),
-	data,
-	(result)=>{
-		if(result.success){
+	connector.sendCommand({ connectorId: data.connectorId, connectorPass: data.connectorPass }, (data.command || ''), data, (result) => {
+		if(result.success) {
 			cb(result.data)
-		}else{
+		} else {
 			next(result.error)
 		}
 	})
-
-	
 }
-

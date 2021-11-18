@@ -35,7 +35,7 @@ app.set('port',config.httpserver.port)
 // global.fileImporter = require('./lib/file_importer')
 // global.documentHelper = require('./lib/document_helper')
 // global.printHelper = require('./lib/print_helper')
-// global.programs=require('./services/programs/programs')
+//global.programs=require('./services/programs/programs')
 global.auth=require('./lib/rest-helper')(config.passport_api)
 
 process.on('uncaughtException', function (err) {

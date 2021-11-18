@@ -31,6 +31,9 @@ function clientControllers(app) {
 
 	function setRepoAPIFunctions(req, res, next) {
 		var ctl = getController(req.params.func)
+		if(!ctl) {
+			return next()
+		}
 		repoDbModel(req.params.dbId, (err, dbModel) => {
 			if(!err) {
 				ctl(dbModel, req, res, next, (data) => {
