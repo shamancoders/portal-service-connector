@@ -53,7 +53,7 @@ function clientControllers(app) {
 						res.status(200).json({ success: true, data: data })
 					}
 					dbModel.free()
-					delete dbModel
+					
 				})
 			} else {
 				next(err)
